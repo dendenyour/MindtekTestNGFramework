@@ -12,10 +12,12 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+import utilities.BrowserUtils;
 import utilities.ConfigReader;
 import utilities.Driver;
 import utilities.TestBase;
 
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 public class BlazedemoTests extends TestBase {
@@ -76,14 +78,14 @@ public class BlazedemoTests extends TestBase {
 
     }
     @Test(groups = {"regression","smoke"})
-    public void validateDestinationOfWeekTest(){
+    public void validateDestinationOfWeekTest() throws IOException {
 
         driver.get(ConfigReader.getProperty("BlazeDemoURL"));
         WebElement destination = driver.findElement(By.xpath("//a[@href='vacation.html']"));
         destination.click();
         String actualMessage = driver.findElement(By.xpath("(//div[@class='container'])[2]")).getText();
-        String expectedMessage = "Destination of the week: Hawaii !";
-        Assert.assertEquals(actualMessage,expectedMessage);
+        String expectedMessage = "Destination of the week: Hawaii ";
+        Assert.assertEquals(actualMessage,expectedMessage,"Refer to screenshot: "+ BrowserUtils.takeScreenshot());
 
     }
 
